@@ -1,0 +1,11 @@
+#!/bin/bash
+# Shell launcher script for driftwm top autohide recent apps & files panel.
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../widgets" && pwd)"
+export PATH="$HOME/.local/bin:$PATH"
+
+if command -v uv >/dev/null 2>&1 && [ -f "$DIR/pyproject.toml" ]; then
+    exec uv run --project "$DIR" python "$DIR/recent_panel.py" "$@"
+else
+    exec python3 "$DIR/recent_panel.py" "$@"
+fi

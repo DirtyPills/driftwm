@@ -1,11 +1,43 @@
 <h1 align="center"><img alt="driftwm" src="assets/logo.jpg" width="500"></h1>
-<p align="center">A trackpad-first infinite canvas Wayland compositor.</p>
+<p align="center"><b>DriftWM — Linux Mint Edition</b></p>
+<p align="center">A trackpad-first infinite canvas Wayland compositor adapted for Linux Mint desktop environment.</p>
 <p align="center">
-    <a href="https://github.com/malbiruk/driftwm/blob/main/LICENSE"><img alt="License: GPL-3.0-or-later" src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue"></a>
-    <a href="https://github.com/malbiruk/driftwm/releases"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/malbiruk/driftwm?logo=github"></a>
-    <a href="https://repology.org/project/driftwm/versions"><img alt="Packaging status" src="https://img.shields.io/repology/repositories/driftwm"></a>
+    <a href="https://github.com/DirtyPills/driftwm"><img alt="Fork: Linux Mint Edition" src="https://img.shields.io/badge/Fork-Linux%20Mint%20Edition-00b4d8?style=for-the-badge&logo=linuxmint"></a>
+    <a href="https://github.com/DirtyPills/driftwm/blob/main/LICENSE"><img alt="License: GPL-3.0-or-later" src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue?style=for-the-badge"></a>
 </p>
-<p align="center"><sub>Primary repository: <a href="https://github.com/malbiruk/driftwm">GitHub</a> · Mirror: <a href="https://codeberg.org/malbiruk/driftwm">Codeberg</a></sub></p>
+<p align="center"><sub>Original repository: <a href="https://github.com/malbiruk/driftwm">malbiruk/driftwm</a> (Arch Linux) · Maintainer of Linux Mint Fork: <b><a href="https://github.com/DirtyPills">duke16bit</a></b></sub></p>
+
+---
+
+## 🌿 DriftWM — Сборка под Linux Mint (Fork by @duke16bit)
+
+В то время как оригинальный **DriftWM** разрабатывался для Arch Linux, данная сборка полностью адаптирована и оптимизирована для работы в окружении **Linux Mint** (с полноценной поддержкой панели задач, меню «Пуск», верхней автоскрываемой панели, LightDM и гибридного Wayland/X11 сеанса).
+
+### 🚀 Что добавлено и изменено в форке для Linux Mint:
+
+#### 1. 🌿 Меню «Пуск» (Mint Style App Launcher)
+- **Интеграция с `nwg-menu`**: По нажатию `Mod+D` или клику на кнопку **«🌿 Пуск»** открывается лаунчер в стиле Mint Everforest.
+- **Возможности**: Нативный Wayland GTK3 layer-shell лаунчер с быстрым поиском программ по категориям, мгновенной фильтрацией и кнопками управления питанием (выключение, перезагрузка, выход). Не оставляет лишних окон на бесконечном холсте.
+
+#### 2. 📊 Нижняя панель задач (Bottom Taskbar & Tray)
+- **Waybar Taskbar & Tray**: Полноценная нижняя панель задач в стиле Linux Mint (`extras/waybar/taskbar.jsonc` + `taskbar.css`).
+- **Индикатор языка (US / RU)**: Мгновенное переключение раскладок ввода (`Alt+Shift`) с выводом текущего языка в панели через IPC-запросы `driftwm msg layout`.
+
+#### 3. 🔝 Верхняя автоскрываемая панель (Top Recent Panel)
+- **Выезжающая верхняя панель ([docs/recent-panel.md](docs/recent-panel.md))**: Автоскрываемый виджет на GTK3 + Layer-Shell (`extras/scripts/driftwm-recent-panel`) с плавной анимацией выезда при подведении курсора к верхнему краю экрана.
+- **Выделенный слот буфера обмена**: Крайний левый блок автоматически захватывает свежие скриншоты Flameshot (`PNG`) и скопированный текст (`TXT`).
+- **Drag & Drop**: Прямое перетаскивание элементов из панели мышью в браузеры, графические редакторы или мессенджеры.
+- **История запусков**: Отслеживает честные запуски программ и файлов (до 25 элементов) с сохранением состояния между перезагрузками в `~/.config/driftwm/recent_history.json`.
+
+#### 4. 🔄 Гибридная поддержка X11 / Qt программ (AmneziaVPN и др.)
+- **Интеграция с `xwayland-satellite`**: Собран и встроен сателлит для трансляции окон классических X11/Qt приложений на Wayland-холст DriftWM.
+- **Корректные переменные окружения**: Преднастроены переменные `MOZ_ENABLE_WAYLAND=1` и `QT_QPA_PLATFORM=wayland;xcb` для безупречной работы Firefox, OBS, AmneziaVPN и других графических утилит Linux Mint.
+
+#### 5. 🛡️ Архитектура сессий и LightDM Manager
+- **Безопасная дуальная сессия**: Возможность выбора в дисплейном менеджере **LightDM / slick-greeter** между сессиями **driftwm (Wayland)** и **Xfce (X11)** без риска поломки конфигураций Xfce (см. [CONTEXT.md](CONTEXT.md)).
+- **Отказоустойчивость**: Оптимизированные параметры `suspend_on_close = false` и `restore_windows = false` в `config.toml`, гарантирующие чистый стартовый холст без зависших фантомных окон.
+
+---
 
 https://github.com/user-attachments/assets/155511a6-0a6e-4681-9061-21be1e93e02a
 
@@ -239,6 +271,7 @@ See [docs/session.md](docs/session.md).
 - Click-to-focus (default) or focus-follows-mouse (sloppy focus)
 - Session lock (swaylock), idle notify (swayidle/hypridle)
 - Screen capture: screencasting (OBS, Firefox, Discord) and screenshots, incl. built-in [canvas/DPI capture](docs/ipc.md#screenshots)
+- [Top Recent Panel](docs/recent-panel.md): Autohiding top panel for recent apps, files, and clipboard/Flameshot DND with smooth GTK slide animations
 - 40+ Wayland protocols
 - [IPC control](docs/ipc.md): script the compositor over a Unix socket with `driftwm msg` (full command/flag reference: [docs/cli.md](docs/cli.md))
 

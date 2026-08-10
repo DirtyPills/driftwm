@@ -12,12 +12,12 @@ autostart = [
     "swaync",
      "waybar -c ~/.config/waybar/taskbar.jsonc -s ~/.config/waybar/taskbar.css",
      "sleep 1 && waybar -c ~/.config/waybar/tray.jsonc -s ~/.config/waybar/tray.css",
-     "vorta -d",
      "~/Documents/work/scripts/driftwm/extras/widgets/launch.sh",
      "~/Documents/work/scripts/driftwm/extras/scripts/battery_notify.sh",
      "~/Documents/work/scripts/driftwm/extras/scripts/theme-watch.sh",
      "swayidle -w timeout 300 'brightnessctl -s set 10%' resume 'brightnessctl -r' timeout 330 '~/Documents/work/scripts/driftwm/extras/scripts/lock.sh' timeout 600 'systemctl suspend' before-sleep '~/Documents/work/scripts/driftwm/extras/scripts/lock.sh'",
      "sway-audio-idle-inhibit",
+     "~/Documents/work/scripts/driftwm/extras/scripts/driftwm-recent-panel",
 ]
 
 focus_follows_mouse = true
@@ -136,7 +136,6 @@ decoration = "server"
 [[window_rules]]
 app_id = "waybar"
 position = [-289, 21]
-widget = true
 decoration = "none"
 
 [[window_rules]]
